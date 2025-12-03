@@ -20,7 +20,7 @@ export default function RootLayout({
       <body className={`bg-background ${dm_sans.className} antialiased`}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
+          defaultTheme="light"
           enableSystem={false}
           disableTransitionOnChange
         >
