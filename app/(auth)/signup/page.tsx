@@ -17,8 +17,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Loader, MailCheckIcon } from "lucide-react";
+import { useMutation } from "@tanstack/react-query";
+import { registerMutationFn } from "@/lib/api";
+import { useState } from "react";
+
 
 function SignUp() {
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const { mutate, isPending } = useMutation({
+    mutationFn: registerMutationFn,
+  });
+
   const formSchema = z
     .object({
       name: z.string().trim().min(1, {
@@ -49,12 +58,27 @@ function SignUp() {
     },
   });
 
+  const onSubmit = (values: z.infer<typeof formSchema>) => {
+    mutate(values, {
+      onSuccess: () => {
+        setIsSubmitted(true);
+      },
+      // onError: (error) => {
+      //   console.log(error);
+      //   toast({
+      //     title: "Error",
+      //     description: error.message,
+      //     variant: "destructive",
+      //   });
+      // },
+    });
+  };
+
   return (
     <>
       <main className="w-full min-h-[500px] h-auto max-w-full pt-10">
         {
-          //isSubmit?
-          false ? (
+          !isSubmitted ? (
             <div className="w-full p-5 rounded-md">
               <Logo />
               <h1 className="text-xl tracking-[-0.16px] dark:text-[#fcfdffef] font-bold mb-1.5 mt-8 text-center sm:text-left">
@@ -68,7 +92,7 @@ function SignUp() {
                 </Link>
               </p>
               <Form {...form}>
-                <form>
+                <form onSubmit={form.handleSubmit(onSubmit)}>
                   <div className="mb-4">
                     <FormField
                       control={form.control}
@@ -153,7 +177,7 @@ function SignUp() {
                   </div>
                   <Button
                     className="w-full text-[15px] h-[40px] bg-blue-500 text-white font-semibold"
-                    //   disabled={isPending}
+                    disabled={isPending}
                     type="submit"
                   >
                     {/* {isPending && <Loader className="animate-spin" />} */}
