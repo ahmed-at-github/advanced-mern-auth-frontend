@@ -34,3 +34,5 @@ export const resetPasswordMutationFn = async (data: resetPasswordType) =>
 
 export const verifyEmailMutationFn = async (data: verifyEmailType) =>
     await API.post(`/auth/verify/email`, data);
+
+export const getUserSessionQueryFn = async () => await API.get(`/session/`);
