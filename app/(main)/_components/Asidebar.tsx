@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useState } from "react";
 import {
   ChevronsUpDown,
@@ -142,7 +144,6 @@ const Asidebar = () => {
                         setTheme(theme === "light" ? "dark" : "light")
                       }
                     >
-                      <MoonStarIcon />
                       {theme === "light" ? <MoonStarIcon /> : <SunIcon />}
                       Toggle theme
                     </DropdownMenuItem>
