@@ -29,7 +29,9 @@ import {
 import { Button } from "@/components/ui/button";
 import { useAuthContext } from "@/context/auth-provider";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { mfaSetupQueryFn, mfaType, verifyMFAMutationFn } from "@/lib/api";
+import { mfaSetupQueryFn, mfaType, verifyMfaMutationFn } from "@/lib/api";
+import RevokeMfa from "./_common/RevokeMfa";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const EnableMfa = () => {
   const { user, refetch } = useAuthContext();
@@ -45,7 +47,7 @@ const EnableMfa = () => {
   });
 
   const { mutate, isPending } = useMutation({
-    mutationFn: verifyMFAMutationFn,
+    mutationFn: verifyMfaMutationFn,
   });
 
   const mfaData = data ?? ({} as mfaType);
@@ -117,8 +119,8 @@ const EnableMfa = () => {
           Protect your account by adding an extra layer of security.
         </p>
         {user?.userPreferences?.enable2FA ? (
-          // <RevokeMfa />
-          <h1>rev</h1>
+          <RevokeMfa />
+
         ) : (
           <Dialog modal open={isOpen} onOpenChange={setIsOpen}>
             <DialogTrigger asChild>
@@ -162,8 +164,7 @@ const EnableMfa = () => {
                 <div className="rounded-md border p-2  border-[#0009321f] dark:border-gray-600 bg-white">
                   {" "}
                   {isLoading || !mfaData?.qrImageUrl ? (
-                    // <Skeleton className="w-[160px] h-[160px]" />
-                    <h1>skel</h1>
+                    <Skeleton className="w-[160px] h-[160px]" />
                   ) : (
                     <img
                       alt="QR code"

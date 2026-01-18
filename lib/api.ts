@@ -50,5 +50,7 @@ export const mfaSetupQueryFn = async () => {
     return response.data;
 };
 
-export const verifyMFAMutationFn = async (data: verifyMFAType) =>
+export const verifyMfaMutationFn = async (data: verifyMFAType) =>
   await API.post(`/mfa/verify`, data);
+
+export const revokeMfaMutationFn = async () => await API.put(`/mfa/revoke`, {});
