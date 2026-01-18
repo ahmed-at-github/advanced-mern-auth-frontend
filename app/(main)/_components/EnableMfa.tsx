@@ -286,3 +286,5 @@ const EnableMfa = () => {
     </div>
   );
 };
+
+export default EnableMfa; 

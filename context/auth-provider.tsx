@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+"use client"
 import useAuth from "@/hooks/use-auth";
 import { createContext, useContext } from "react";
 

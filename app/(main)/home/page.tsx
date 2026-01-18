@@ -1,5 +1,5 @@
 import React from "react";
-import EnableMfa from "./components/EnableMfa";
+import EnableMfa from "../_components/EnableMfa";
 import Sessions from "./components/Sessions";
 
 const Home = () => {
@@ -21,7 +21,7 @@ const Home = () => {
               <div className="ml-1 mt-1 h-3 w-3 rounded-full border-2 transition duration-200 ease-in-out border-primary"></div>
             </div>
             <div>
-              {/* <EnableMfa /> */}
+              <EnableMfa />
             </div>
           </div>
         </div>
