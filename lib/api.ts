@@ -24,6 +24,7 @@ export type mfaType = {
 };
 
 type verifyMFAType = { code: string; secretKey: string };
+type mfaLoginType = { code: string; email: string };
 
 
 export const loginMutationFn = async (data: LoginType) => {
@@ -54,3 +55,6 @@ export const verifyMfaMutationFn = async (data: verifyMFAType) =>
   await API.post(`/mfa/verify`, data);
 
 export const revokeMfaMutationFn = async () => await API.put(`/mfa/revoke`, {});
+
+export const verifyMfaLoginMutationFn = async (data: mfaLoginType) =>
+  await API.post(`/mfa/verify-login`, data);
