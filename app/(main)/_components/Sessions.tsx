@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-"use client"
+"use client";
 import React, { useCallback } from "react";
 import SessionItem from "./SessionItem";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -18,9 +18,6 @@ const Sessions = () => {
   });
 
   const sessions = data?.sessions || [];
-
-  console.log(sessions);
-  
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const currentSession = sessions?.find((session: any) => session.isCurrent);

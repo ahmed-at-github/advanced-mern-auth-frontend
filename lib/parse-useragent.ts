@@ -13,7 +13,7 @@ interface AgentType {
 export const parseUserAgent = (userAgent: string, createdAt: string): AgentType => {
     const result = UAParser(userAgent);
  
-console.log( result , "ct");
+// console.log( result , "ct");
 
     const deviceType = result.device.type || "Desktop";
     const browser = result.browser.name || "Web";

@@ -20,6 +20,7 @@ import { ArrowRight, Loader, MailCheckIcon } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
 import { registerMutationFn } from "@/lib/api";
 import { useState } from "react";
+import { toast } from "sonner";
 
 
 function SignUp() {
@@ -63,14 +64,12 @@ function SignUp() {
       onSuccess: () => {
         setIsSubmitted(true);
       },
-      // onError: (error) => {
-      //   console.log(error);
-      //   toast({
-      //     title: "Error",
-      //     description: error.message,
-      //     variant: "destructive",
-      //   });
-      // },
+      onError: (error) => {
+        console.log(error);
+        toast.error("Error", {
+          description: error.message,
+        });
+      },
     });
   };
 

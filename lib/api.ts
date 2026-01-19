@@ -42,7 +42,7 @@ type SessionResponseType = {
 
 
 export const loginMutationFn = async (data: LoginType) => {
-    await API.post(`/auth/login`, data)
+    return await API.post(`/auth/login`, data)
 }
 
 export const registerMutationFn = async (data: registerType) => {

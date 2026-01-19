@@ -15,8 +15,6 @@ const SessionItem = (props: {
   const { userAgent, loading, date, isCurrent = false, onRemove } = props;
 
   const { os, browser, timeAgo, icon: Icon } = parseUserAgent(userAgent, date);
-
-  console.log(userAgent);
   
   const handleRemove = () => {
     if (onRemove) {

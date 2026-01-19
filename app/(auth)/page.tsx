@@ -19,6 +19,7 @@ import Logo from "@/components/logo";
 import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 import { loginMutationFn } from "@/lib/api";
+import { toast } from "sonner";
 
 export default function Login() {
   const router = useRouter();
@@ -46,19 +47,27 @@ export default function Login() {
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     mutate(values, {
       onSuccess: (response: any) => {
-        if (response?.mfaRequired) {
+        
+        if (!response?.data?.user?.isEmailVerified) {
+          
+           toast.warning("Account is not Verified", {
+          description: "Please verify your account",
+        });
+          router.replace(`/`);
+          return;
+        }
+
+        if (response?.data?.mfaRequired) {
           router.replace(`/verify-mfa?email=${values.email}`);
           return;
         }
         router.replace("/home");
       },
-      // onError: (error) => {
-      //   toast({
-      //     title: "Error",
-      //     description: error.message,
-      //     variant: "destructive",
-      //   });
-      // },
+      onError: (error) => {
+        toast.error("Error", {
+          description: error.message,
+        });
+      },
     });
   };
 
