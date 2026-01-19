@@ -1,6 +1,6 @@
 import React from "react";
 import EnableMfa from "../_components/EnableMfa";
-import Sessions from "./components/Sessions";
+import Sessions from "../_components/Sessions";
 
 const Home = () => {
   return (
@@ -32,7 +32,7 @@ const Home = () => {
               <div className="ml-1 mt-1 h-3 w-3 rounded-full border-2 transition duration-200 ease-in-out border-primary"></div>
             </div>
             <div>
-              {/* <Sessions /> */}
+              <Sessions />
             </div>
           </div>
         </div>

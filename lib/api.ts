@@ -31,7 +31,7 @@ type SessionType = {
   userId: string;
   userAgent: string;
   createdAt: string;
-  expiresAt: string;
+  expiredAt: string;
   isCurrent: boolean;
 };
 

@@ -110,7 +110,7 @@ export default function Login() {
                         placeholder="••••••••••••"
                         {...field}
                         autoComplete="off"
-                        // type="password"
+                        type="password"
                       />
                     </FormControl>
                     <FormMessage />

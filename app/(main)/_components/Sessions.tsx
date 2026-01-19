@@ -17,6 +17,8 @@ const Sessions = () => {
     mutationFn: sessionDelMutationFn,
   });
 
+ 
+  
   const sessions = data?.sessions || [];
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -89,12 +91,11 @@ const Sessions = () => {
                 "
                 >
                   {otherSessions?.map((session) => (
-                    <li>
+                    <li key={session._id}>
                       <SessionItem
                         loading={isPending}
                         userAgent={session.userAgent}
                         date={session.createdAt}
-                        expiresAt={session.expiresAt}
                         onRemove={() => handleDelete(session._id)}
                       />
                     </li>
