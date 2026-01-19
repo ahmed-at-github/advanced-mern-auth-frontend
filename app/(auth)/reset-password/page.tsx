@@ -19,6 +19,7 @@ import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 import { resetPasswordMutationFn } from "@/lib/api";
+import { toast } from "sonner";
 
 export default function ResetPassword() {
   const router = useRouter();
@@ -68,20 +69,17 @@ export default function ResetPassword() {
     };
     mutate(data, {
       onSuccess: () => {
-        // toast({
-        //   title: "Success",
-        //   description: "Password reset successfully",
-        // });
+        toast.success("Success",{
+          description: "Password reset successfully",
+        });
         router.replace("/");
       },
-      //   onError: (error) => {
-      //     console.log(error);
-      //     toast({
-      //       title: "Error",
-      //       description: error.message,
-      //       variant: "destructive",
-      //     });
-      //   },
+        onError: (error) => {
+          console.log(error);
+          toast.error("Error", {
+            description: error.message,
+          });
+        },
     });
   };
 

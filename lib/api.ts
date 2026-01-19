@@ -27,17 +27,17 @@ type verifyMFAType = { code: string; secretKey: string };
 type mfaLoginType = { code: string; email: string };
 
 type SessionType = {
-  _id: string;
-  userId: string;
-  userAgent: string;
-  createdAt: string;
-  expiredAt: string;
-  isCurrent: boolean;
+    _id: string;
+    userId: string;
+    userAgent: string;
+    createdAt: string;
+    expiredAt: string;
+    isCurrent: boolean;
 };
 
 type SessionResponseType = {
-  message: string;
-  sessions: SessionType[];
+    message: string;
+    sessions: SessionType[];
 };
 
 
@@ -49,8 +49,9 @@ export const registerMutationFn = async (data: registerType) => {
     await API.post(`/auth/register`, data)
 }
 
-export const forgotPasswordMutationFn = async (data: forgotPasswordType) =>
-    await API.post(`/auth/password/forgot`, data);
+export const forgotPasswordMutationFn = async (data: forgotPasswordType) => {
+    return await API.post(`/auth/password/forgot`, data);
+}
 
 export const resetPasswordMutationFn = async (data: resetPasswordType) =>
     await API.post(`/auth/password/reset`, data);

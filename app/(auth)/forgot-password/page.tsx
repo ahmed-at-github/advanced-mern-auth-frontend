@@ -3,7 +3,7 @@ import { useState } from "react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ArrowRight, Link, Loader, MailCheckIcon } from "lucide-react";
+import { ArrowRight, Loader, MailCheckIcon } from "lucide-react";
 import {
   Form,
   FormControl,
@@ -18,6 +18,8 @@ import Logo from "@/components/logo";
 import { useSearchParams } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 import { forgotPasswordMutationFn } from "@/lib/api";
+import { toast } from "sonner";
+import Link from "next/link";
 
 export default function ForgotPassword() {
   const params = useSearchParams();
@@ -47,14 +49,13 @@ export default function ForgotPassword() {
       onSuccess: (response: any) => {
         setIsSubmitted(true);
       },
-      // onError: (error) => {
-      //   console.log(error);
-      //   toast({
-      //     title: "Error",
-      //     description: error.message,
-      //     variant: "destructive",
-      //   });
-      // },
+
+      onError: (error) => {
+        console.log(error);
+        toast.error("Error",{
+          description: error.message,
+        });
+      },
     });
   };
 
@@ -87,7 +88,7 @@ export default function ForgotPassword() {
                       </FormLabel>
                       <FormControl>
                         <Input
-                          placeholder="subscribeto@channel.com"
+                          placeholder="your@email.com"
                           {...field}
                         />
                       </FormControl>
