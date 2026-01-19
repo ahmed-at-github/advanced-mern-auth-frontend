@@ -17,9 +17,10 @@ const Sessions = () => {
     mutationFn: sessionDelMutationFn,
   });
 
- 
-  
   const sessions = data?.sessions || [];
+
+  console.log(sessions);
+  
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const currentSession = sessions?.find((session: any) => session.isCurrent);
@@ -78,7 +79,6 @@ const Sessions = () => {
                   <SessionItem
                     userAgent={currentSession.userAgent}
                     date={currentSession.createdAt}
-                    expiresAt={currentSession.expiresAt}
                     isCurrent={currentSession.isCurrent}
                   />
                 </div>

@@ -10,10 +10,14 @@ const SessionItem = (props: {
   isCurrent?: boolean;
   onRemove?: () => void;
 }) => {
+
+
   const { userAgent, loading, date, isCurrent = false, onRemove } = props;
 
   const { os, browser, timeAgo, icon: Icon } = parseUserAgent(userAgent, date);
 
+  console.log(userAgent);
+  
   const handleRemove = () => {
     if (onRemove) {
       onRemove();
@@ -27,8 +31,7 @@ const SessionItem = (props: {
       </div>
       <div className="flex-1 flex items-center justify-between">
         <div className="flex-1">
-          <h5 className="text-sm font-medium leading-1">
-            {" "}
+          <h5 className="text-sm font-medium leading-1 my-2">
             {os} / {browser}
           </h5>
           <div className="flex items-center">

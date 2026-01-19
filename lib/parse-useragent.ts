@@ -11,13 +11,13 @@ interface AgentType {
 }
 
 export const parseUserAgent = (userAgent: string, createdAt: string): AgentType => {
-    const parser = UAParser(userAgent);
-    const result = parser;
-console.log(createdAt, "ct");
+    const result = UAParser(userAgent);
+ 
+console.log( result , "ct");
 
     const deviceType = result.device.type || "Desktop";
     const browser = result.browser.name || "Web";
-    const os = `${result.os.name} ${result.os.version}`;
+    const os = `${result.os.name}`+ (result.os.version ? ` ${result.os.version}` : "");
     const icon = deviceType === "mobile" ? Smartphone : Laptop;
 
     const formattedAt = isPast(new Date(createdAt)) ? `${formatDistanceToNowStrict(new Date(createdAt))} ago` : format(new Date(createdAt), "d MMM, yyyy");
