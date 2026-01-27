@@ -48,12 +48,14 @@ export default function Login() {
     mutate(values, {
       onSuccess: (response: any) => {
         
+        console.log(response.data);
+        
         if (!response?.data?.user?.isEmailVerified) {
           
            toast.warning("Account is not Verified", {
           description: "Please verify your account",
         });
-          router.replace(`/`);
+          // router.replace(`/`);
           return;
         }
 

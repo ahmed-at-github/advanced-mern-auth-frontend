@@ -24,6 +24,7 @@ import Logo from "@/components/logo";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 import { verifyMfaLoginMutationFn } from "@/lib/api";
+import { toast } from "sonner";
 
 const VerifyMfa = () => {
   const router = useRouter();
@@ -57,19 +58,16 @@ const VerifyMfa = () => {
     mutate(data, {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       onSuccess: (response: any) => {
+        toast.success("MFA verified successfully", {
+          description: response?.data?.message,
+        });
         router.replace("/home");
-        //    toast({
-        //       title: "Success",
-        //       description: response?.data?.message,
-        //     });
       },
-      //   onError: (error) => {
-      //     toast({
-      //       title: "Error",
-      //       description: error.message,
-      //       variant: "destructive",
-      //     });
-      //   },
+      onError: (error) => {
+        toast.error("MFA verification failed", {
+          description: error.message,
+        });
+      },
     });
   };
 
@@ -78,8 +76,7 @@ const VerifyMfa = () => {
       <div className="w-full h-full p-5 rounded-md">
         <Logo />
 
-        <h1
-          className="text-xl tracking-[-0.16px] dark:text-[#fcfdffef] font-bold mt-8 text-center sm:text-left" >
+        <h1 className="text-xl tracking-[-0.16px] dark:text-[#fcfdffef] font-bold mt-8 text-center sm:text-left">
           Multi-Factor Authentication
         </h1>
         <p className="mb-6 text-center sm:text-left text-[15px] dark:text-[#f1f7feb5] font-normal">
