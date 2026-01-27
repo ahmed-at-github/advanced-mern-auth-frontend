@@ -3,6 +3,7 @@ import { revokeMfaMutationFn } from "@/lib/api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Loader } from "lucide-react";
 import { useCallback } from "react";
+import { toast } from "sonner";
 
 const RevokeMfa = () => {
   const queryClient = useQueryClient();
@@ -13,18 +14,16 @@ const RevokeMfa = () => {
       queryClient.invalidateQueries({
         queryKey: ["authUser"],
       });
-      //   toast({
-      //     title: "Success",
-      //     description: response.message,
-      //   });
+      toast.success("MFA revoked successfully", {
+        description: response.message,
+      });
     },
-    // onError: (error: any) => {
-    //   toast({
-    //     title: "Error",
-    //     description: error.message,
-    //     variant: "destructive",
-    //   });
-    // },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    onError: (error: any) => {
+      toast.error("MFA revoked failed", {
+        description: error.message,
+      });
+    },
   });
 
   // eslint-disable-next-line react-hooks/preserve-manual-memoization
@@ -44,4 +43,4 @@ const RevokeMfa = () => {
   );
 };
 
-export default RevokeMfa
+export default RevokeMfa;

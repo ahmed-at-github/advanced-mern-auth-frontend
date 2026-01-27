@@ -32,6 +32,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { mfaSetupQueryFn, mfaType, verifyMfaMutationFn } from "@/lib/api";
 import RevokeMfa from "./_common/RevokeMfa";
 import { Skeleton } from "@/components/ui/skeleton";
+import { toast } from "sonner";
 
 const EnableMfa = () => {
   const { user, refetch } = useAuthContext();
@@ -45,6 +46,9 @@ const EnableMfa = () => {
     enabled: isOpen,
     staleTime: Infinity,
   });
+
+  console.log(user);
+  
 
   const { mutate, isPending } = useMutation({
     mutationFn: verifyMfaMutationFn,
@@ -76,18 +80,15 @@ const EnableMfa = () => {
       onSuccess: (response: any) => {
         refetch();
         setIsOpen(false);
-        //  toast({
-        //   title: "Success",
-        //   description: response.message,
-        // });
+        toast.success("MFA verified Successfully", {
+          description: response.message,
+        });
       },
-      // onError: (error) => {
-      //    toast({
-      //     title: "Error",
-      //     description: error.message,
-      //     variant: "destructive",
-      //   });
-      // }
+      onError: (error) => {
+        toast.error("MFA verification failed", {
+          description: error.message,
+        });
+      },
     });
   }
 
@@ -105,7 +106,7 @@ const EnableMfa = () => {
             Multi-Factor Authentication (MFA)
           </h3>
 
-          {user?.userPreferences?.enable2FA && (
+          {user?.userPreference?.enable2FA && (
             <span
               className="select-none whitespace-nowrap font-medium bg-green-100 text-green-500
           text-xs h-6 px-2 rounded flex flex-row items-center justify-center gap-1"
@@ -118,9 +119,8 @@ const EnableMfa = () => {
         <p className="mb-6 text-sm text-[#0007149f] dark:text-gray-100 font-normal">
           Protect your account by adding an extra layer of security.
         </p>
-        {user?.userPreferences?.enable2FA ? (
+        {user?.userPreference?.enable2FA ? (
           <RevokeMfa />
-
         ) : (
           <Dialog modal open={isOpen} onOpenChange={setIsOpen}>
             <DialogTrigger asChild>
@@ -288,4 +288,4 @@ const EnableMfa = () => {
   );
 };
 
-export default EnableMfa; 
+export default EnableMfa;
